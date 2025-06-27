@@ -1,0 +1,123 @@
+/* Reset Básico e Estilo do Body */
+body {
+    font-family: 'Roboto', sans-serif; /* Usando a nova fonte */
+    margin: 0;
+    background-color: #f0f2f5; /* Um cinza bem claro para o fundo */
+    color: #333;
+}
+
+/* Cabeçalho */
+header {
+    background: white;
+    color: #333;
+    text-align: center;
+    padding: 20px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem; /* 32px */
+    font-weight: 700;
+}
+
+header h2 {
+    margin: 5px 0;
+    font-size: 1.25rem; /* 20px */
+    font-weight: 400;
+    color: #555;
+}
+
+header p {
+    margin: 5px 0 0;
+    font-size: 0.9rem; /* 14px */
+    color: #777;
+}
+
+/* Container Principal do Cardápio */
+main {
+    max-width: 700px; /* Limita a largura em telas grandes */
+    margin: 20px auto; /* Centraliza o conteúdo */
+    padding: 0 15px;
+}
+
+/* Estilo do Card de Categoria */
+.card-categoria {
+    background-color: white;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card-categoria h3 {
+    font-size: 1.5rem; /* 24px */
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #4CAF50; /* Linha verde abaixo do título */
+    padding-bottom: 10px;
+}
+
+/* Estilo de cada item do menu */
+.item-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.item-menu:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.item-info p {
+    margin: 0;
+}
+
+.item-info .nome {
+    font-weight: 500;
+    font-size: 1rem; /* 16px */
+}
+
+.item-info .descricao {
+    font-size: 0.85rem; /* 13.6px */
+    color: #666;
+    margin-top: 4px;
+    white-space: pre-line;
+}
+
+.item-preco {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #333;
+    white-space: nowrap; /* Impede que o preço quebre a linha */
+    margin-left: 15px;
+}
+
+
+/* Rodapé */
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* Estilos para o novo modelo de item principal com sub-itens */
+.item-principal-titulo {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.sub-item {
+    padding-left: 20px; /* Adiciona um recuo para os tamanhos */
+    border-top: 1px solid #f5f5f5;
+}
+
+.sub-item .item-info .nome {
+    font-weight: 400; /* Deixa o nome do tamanho/opção mais leve */
+}
