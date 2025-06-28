@@ -1,97 +1,78 @@
-body { font-family: sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
-#login-container, #admin-panel { width: 100%; max-width: 800px; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: auto; }
-input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-button { width: 100%; padding: 10px; border: none; background-color: #4CAF50; color: white; font-size: 1rem; border-radius: 4px; cursor: pointer; }
-button:hover { background-color: #45a049; }
-.error-message { color: red; text-align: center; margin-top: 10px; }
-
-/* Estilos do Painel */
-.admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 1rem; margin-bottom: 1rem; }
-#logout-button { width: auto; background-color: #f44336; }
-.card { margin-bottom: 2rem; }
-.card h2 { margin-top: 0; }
-
-/* Estilos da lista de itens */
-.menu-item-admin { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #f0f0f0; }
-.menu-item-admin:last-child { border-bottom: none; }
-.menu-item-admin span { flex-grow: 1; }
-.delete-btn { width: auto; background-color: #e74c3c; font-size: 0.8rem; padding: 5px 10px; margin-left: 10px; }
-
-/* Estilos para o botão de editar */
-.edit-btn {
-    width: auto;
-    background-color: #f0ad4e; /* Laranja */
-    font-size: 0.8rem;
-    padding: 5px 10px;
-    margin-left: 10px;
+/* 1. ESTILOS GERAIS E VARIÁVEIS */
+:root {
+    --cor-primaria: #2E7D32;
+    --cor-perigo: #d9534f;
+    --cor-fundo-admin: #f8f9fa;
+    --cor-texto-titulo: #343a40;
+    --cor-texto-corpo: #495057;
+    --cor-borda: #dee2e6;
 }
 
-/* Estilos para o Modal de Edição */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+body { 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--cor-fundo-admin); 
+    margin: 0; 
+    padding: 20px;
+    color: var(--cor-texto-corpo);
 }
 
-.modal-content {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
+/* 2. LAYOUT PRINCIPAL DO PAINEL */
+#login-container, #admin-panel { 
+    width: 100%; 
+    max-width: 900px;
+    background: white; 
+    padding: 2rem; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+    margin: auto; 
 }
 
-.modal-content h2 {
-    margin-top: 0;
-}
+.admin-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--cor-borda); }
+.admin-header h1 { font-size: 1.8rem; color: var(--cor-texto-titulo); }
+#logout-button { background-color: var(--cor-perigo); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 500; }
 
-.modal-content label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
+.card { margin-bottom: 2.5rem; border: 1px solid var(--cor-borda); padding: 1.5rem; border-radius: 8px; }
+.card h2 { margin-top: 0; margin-bottom: 20px; font-size: 1.5rem; color: var(--cor-texto-titulo); }
+.card p { color: #6c757d; margin-top: -15px; margin-bottom: 25px; }
 
-.modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 1.5rem;
+/* 3. FORMULÁRIOS */
+input[type="text"], input[type="password"], input[type="email"], input[type="number"], select, textarea {
+    width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box; font-size: 1rem; transition: border-color 0.2s, box-shadow 0.2s;
 }
+input:focus, select:focus, textarea:focus { border-color: var(--cor-primaria); box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25); outline: none; }
+button { cursor: pointer; border-radius: 5px; font-weight: 500; transition: background-color 0.2s; }
 
-.modal-actions button {
-    width: auto;
-    margin-left: 10px;
-}
+/* Formulários de adicionar itens */
+#add-library-item-form, #add-option-form { display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end; }
+#add-library-item-form input[type="text"], #add-option-form input[type="text"] { flex-grow: 1; }
+#add-library-item-form button, #add-option-form button { width: auto; flex-shrink: 0; padding: 12px 15px; background-color: var(--cor-primaria); color: white; border: none; }
 
-.save-btn {
-    background-color: #4CAF50; /* Verde */
-}
+/* 4. LISTAS DE INGREDIENTES, OPÇÕES E BIBLIOTECA */
+.cta-button { background-color: var(--cor-primaria); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 1rem; margin-bottom: 20px; }
+.ingredient-lists { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 20px; }
+@media (min-width: 768px) { .ingredient-lists { grid-template-columns: 1fr 1fr; } }
+.ingredient-column h3 { margin-top: 0; margin-bottom: 10px; border-bottom: 1px solid var(--cor-borda); padding-bottom: 10px; }
+.ingredient-column ul { list-style-type: none; padding: 0; margin: 0; }
+.ingredient-column li { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-radius: 4px; }
+.ingredient-column li:nth-child(odd) { background-color: #f8f9fa; }
 
-.cancel-btn {
-    background-color: #777; /* Cinza */
-}
+/* Lista da biblioteca e opções de marmita */
+#library-list-container, #options-list { margin-top: 20px; }
+#library-list-container .menu-item-admin, #options-list li { display: flex; justify-content: space-between; align-items: center; padding: 8px; border-bottom: 1px solid #f1f1f1; }
+#library-list-container .delete-btn, #options-list .delete-btn { background: transparent; color: var(--cor-perigo); border: none; font-size: 1.2rem; opacity: 0.6; transition: opacity 0.2s; cursor: pointer; }
+#library-list-container .menu-item-admin:hover .delete-btn, #options-list li:hover .delete-btn { opacity: 1; }
 
-/* Adiciona a tag 'textarea' ao estilo geral dos inputs */
-input, textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-family: sans-serif; /* Garante a mesma fonte */
-    font-size: 1rem; /* Garante o mesmo tamanho de fonte */
-}
-
-/* Estilo específico para a textarea */
-textarea {
-    min-height: 80px; /* Altura inicial maior */
-    resize: vertical; /* Permite que o usuário redimensione a altura */
-}
+/* 5. MODAL */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.modal-content { background: white; padding: 2rem; border-radius: 8px; width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto; }
+.modal-content h2 { margin-top: 0; }
+.modal-actions { display: flex; justify-content: flex-end; margin-top: 1.5rem; gap: 10px; }
+.modal-actions button { width: auto; padding: 10px 20px; }
+.save-btn { background-color: var(--cor-primaria); color: white; border: none; }
+.cancel-btn { background-color: #6c757d; color: white; border: none; }
+#modal-ingredient-lists .ingredient-column { border: 1px solid #eee; padding: 15px; border-radius: 8px; }
+.checkbox-list { list-style: none; padding: 0; margin: 0; }
+.checkbox-list li { padding: 5px 0; }
+.checkbox-list label { display: flex; align-items: center; cursor: pointer; }
+.checkbox-list input[type="checkbox"] { margin-right: 10px; width: 18px; height: 18px; }
 
