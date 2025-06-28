@@ -2,60 +2,61 @@
 :root {
     --cor-primaria: #2E7D32;
     --cor-secundaria: #FFC107;
-    --cor-fundo: #f4f5f7;
+    --cor-fundo: #f8f9fa;
     --cor-card: #FFFFFF;
-    --cor-texto: #333333;
-    --cor-texto-leve: #666666;
+    --cor-texto: #212529;
+    --cor-texto-leve: #495057;
     --cor-perigo: #d9534f;
-    --sombra-card: 0 4px 15px rgba(0, 0, 0, 0.08);
+    --cor-borda: #dee2e6;
+    --sombra-suave: 0 4px 15px rgba(0, 0, 0, 0.07);
     --fonte-titulo: 'Poppins', sans-serif;
     --fonte-corpo: 'Roboto', sans-serif;
 }
 
 * { box-sizing: border-box; }
-body { font-family: var(--fonte-corpo); margin: 0; background-color: var(--cor-fundo); color: var(--cor-texto); }
-.container { width: 100%; padding: 0 15px; margin: 0 auto; max-width: 800px; }
+html { font-size: 100%; }
+body { 
+    font-family: var(--fonte-corpo); 
+    margin: 0; 
+    background-color: var(--cor-fundo); 
+    color: var(--cor-texto);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+.container { width: 100%; padding: 0 20px; margin: 0 auto; max-width: 800px; }
 
-/* 2. ESTILOS DO CONTEÚDO PRINCIPAL */
-header { background: var(--cor-card); text-align: center; padding: 20px 0; box-shadow: var(--sombra-card); }
-header h1 { font-family: var(--fonte-titulo); margin: 0; font-size: 2rem; color: var(--cor-primaria); }
+/* 2. CABEÇALHO E CONTEÚDO */
+header { background: var(--cor-card); text-align: center; padding: 25px 0; border-bottom: 1px solid var(--cor-borda); }
+header h1 { font-family: var(--fonte-titulo); margin: 0; font-size: 2.2rem; color: var(--cor-primaria); }
 header p { margin: 5px 0; font-weight: 400; color: var(--cor-texto-leve); }
-main { padding: 20px 0; }
-.card-categoria { background-color: var(--cor-card); border-radius: 12px; margin-bottom: 20px; padding: 20px; box-shadow: var(--sombra-card); text-align: left;}
 
-/* ESTILOS DOS ITENS DO CARDÁPIO */
-.card-categoria h2 { font-family: var(--fonte-titulo); font-size: 1.5rem; margin-top: 0; padding-bottom: 10px; border-bottom: 2px solid var(--cor-primaria); }
-.item-menu { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; }
-.item-menu:last-child { border-bottom: none; }
+main { padding: 25px 0; }
+.card-categoria { background-color: var(--cor-card); border-radius: 12px; margin-bottom: 25px; padding: 25px; box-shadow: var(--sombra-suave); text-align: left; }
+.card-categoria h2 { font-family: var(--fonte-titulo); font-size: 1.8rem; margin-top: 0; padding-bottom: 15px; border-bottom: 2px solid var(--cor-primaria); }
 
-/* ESTILO PARA A LISTA DE INGREDIENTES */
+/* LISTA DE INGREDIENTES */
 .lista-ingredientes { list-style-type: none; padding: 0; margin: 0; column-count: 1; }
-.lista-ingredientes li { padding: 8px 0; border-bottom: 1px dashed #eee; color: var(--cor-texto-leve); display: flex; align-items: center; text-align: left; }
-.lista-ingredientes li::before { content: '✓'; color: var(--cor-primaria); font-weight: bold; margin-right: 10px; font-size: 1.2rem; }
+.lista-ingredientes li { padding: 10px 0; border-bottom: 1px dashed #eee; color: var(--cor-texto-corpo); display: flex; align-items: center; text-align: left; font-size: 1.1rem; }
+.lista-ingredientes li::before { content: '✓'; color: var(--cor-primaria); font-weight: bold; margin-right: 15px; font-size: 1.4rem; }
 @media (min-width: 500px) { .lista-ingredientes { column-count: 2; column-gap: 30px; } }
 
-/* 3. ESTILOS DA SECÇÃO DE MONTAR MARMITA */
+/* 3. SECÇÃO "MONTE A SUA MARMITA" */
 #marmita-builder { padding-top: 10px; }
-.marmita-options { display: flex; flex-direction: column; gap: 20px; margin-bottom: 25px; }
-.option-group label { display: block; font-weight: 500; margin-bottom: 8px; color: var(--cor-texto-leve); }
-.custom-select { width: 100%; padding: 12px; font-size: 1rem; border: 1px solid #ccc; border-radius: 8px; background-color: white; appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236c757d%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 15px top 50%; background-size: .65em auto; cursor: pointer; }
-.cta-button, #add-marmita-btn { background-color: var(--cor-primaria); color: white; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1.2rem; text-transform: uppercase; transition: background-color 0.2s, transform 0.2s; }
-.cta-button:hover, #add-marmita-btn:hover { background-color: #1B5E20; transform: scale(1.05); }
+.marmita-options { display: flex; flex-direction: column; gap: 25px; margin-bottom: 25px; }
+.option-group label { display: block; font-weight: 700; margin-bottom: 10px; font-size: 1.2rem; color: var(--cor-texto); }
+.custom-select, .custom-textarea { width: 100%; padding: 15px; font-size: 1.1rem; border: 2px solid var(--cor-borda); border-radius: 8px; background-color: white; }
+.custom-select { appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23495057%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 15px top 50%; background-size: .75em auto; cursor: pointer; }
+.custom-textarea { min-height: 100px; resize: vertical; font-family: var(--fonte-corpo); }
 
-/* Estilo para o campo de observação */
-.custom-textarea {
-    width: 100%;
-    padding: 12px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: white;
-    min-height: 80px;
-    resize: vertical;
-    font-family: var(--fonte-corpo);
-}
+#add-marmita-btn { background-color: var(--cor-primaria); color: white; border: none; padding: 18px 30px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1.3rem; text-transform: uppercase; transition: background-color 0.2s, transform 0.2s; width: 100%; }
+#add-marmita-btn:hover { background-color: var(--cor-secundaria); transform: scale(1.02); }
 
-/* 4. ESTILOS DO BOTÃO FLUTUANTE (FAB) E PAINEL LATERAL */
+/* 4. RODAPÉ E BOTÃO DE INSTALAÇÃO */
+footer { text-align: center; padding: 20px 0; color: var(--cor-texto-leve); font-size: 0.9rem; }
+#install-pwa-btn { display: none; width: 100%; max-width: 320px; margin: 0 auto 25px auto; background-color: var(--cor-secundaria); color: var(--cor-texto); padding: 15px; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 700; box-shadow: var(--sombra-suave); cursor: pointer; transition: all 0.2s ease; }
+#install-pwa-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+
+/* 5. CARRINHO FLUTUANTE E PAINEL LATERAL */
 .fab { position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px; background-color: var(--cor-primaria); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); cursor: pointer; z-index: 999; transition: transform 0.2s ease-in-out; }
 .fab:hover { transform: scale(1.1); }
 .badge { position: absolute; top: -5px; right: -5px; background-color: var(--cor-perigo); color: white; font-size: 0.8rem; font-weight: bold; width: 24px; height: 24px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid white; }
@@ -66,35 +67,21 @@ main { padding: 20px 0; }
 .overlay.open { opacity: 1; visibility: visible; transition: opacity 0.4s; }
 
 .panel-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background-color: white; border-bottom: 1px solid #ddd; }
-.panel-header h3 { margin: 0; font-family: var(--fonte-titulo); }
-.close-btn { background: none; border: none; font-size: 2rem; color: var(--cor-texto-leve); cursor: pointer; }
+.panel-header h3 { margin: 0; font-family: var(--fonte-titulo); font-size: 1.4rem; }
+.close-btn { background: none; border: none; font-size: 2.5rem; color: var(--cor-texto-leve); cursor: pointer; }
 .panel-body { flex-grow: 1; overflow-y: auto; padding: 10px 20px; }
 .panel-footer { padding: 20px; background-color: white; border-top: 1px solid #ddd; box-shadow: 0 -5px 15px rgba(0,0,0,0.05); }
-.panel-footer #carrinho-total { font-size: 1.2rem; text-align: right; margin-bottom: 15px; }
-.panel-footer #finalizar-pedido-btn { width: 100%; padding: 12px; background-color: var(--cor-primaria); border:none; color:white; border-radius: 8px; font-size: 1.1rem; }
+.panel-footer #carrinho-total { font-size: 1.3rem; text-align: right; margin-bottom: 15px; font-weight: 700; }
+.panel-footer #finalizar-pedido-btn { width: 100%; padding: 15px; background-color: var(--cor-primaria); border:none; color:white; border-radius: 8px; font-size: 1.2rem; font-weight: 700; }
 
-/* 5. Estilo corrigido para os itens DENTRO do painel do carrinho */
-.panel-body .item-menu { display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap; gap: 15px; border-bottom: 1px solid #eee; }
+.panel-body .item-menu { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #eee; }
 .panel-body .item-info { flex-grow: 1; }
-.item-preco-unitario { font-size: 0.8rem; color: var(--cor-texto-leve); margin: 4px 0 0 0 !important; }
+.panel-body .item-info .nome { font-size: 1.1rem; font-weight: 500; }
+.cart-item-obs { font-size: 0.9rem; font-style: italic; color: var(--cor-texto-leve); margin-top: 5px; }
 
-/* Estilo para exibir a observação no carrinho */
-.cart-item-obs {
-    font-size: 0.85rem;
-    font-style: italic;
-    color: #888;
-    margin-top: 5px;
-    padding-left: 5px;
-    border-left: 2px solid #eee;
-    width: 100%; /* Garante que a observação ocupe toda a largura disponível */
-}
-
-
-/* 6. Estilos para os controlos de quantidade e ações no carrinho */
-.cart-item-controls { display: flex; align-items: center; gap: 15px; margin-left: auto; flex-shrink: 0; }
-.quantity-controls { display: flex; align-items: center; gap: 8px; }
-.quantity-controls span { font-weight: bold; font-size: 1rem; min-width: 20px; text-align: center; }
-.quantity-controls button { background-color: #e0e0e0; color: var(--cor-texto); border: 1px solid #ccc; border-radius: 50%; width: 28px; height: 28px; font-size: 1.2rem; font-weight: bold; line-height: 1; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: background-color 0.2s; }
-.quantity-controls button:hover { background-color: #d0d0d0; }
-.remove-all-btn { background-color: transparent; color: var(--cor-texto-leve); border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 1.5rem; line-height: 1; cursor: pointer; transition: background-color 0.2s, color 0.2s; }
-.remove-all-btn:hover { background-color: var(--cor-perigo); color: white; }
+.cart-item-controls { display: flex; align-items: center; gap: 10px; margin-left: auto; flex-shrink: 0; }
+.quantity-controls { display: flex; align-items: center; gap: 10px; }
+.quantity-controls span { font-weight: bold; font-size: 1.2rem; min-width: 25px; text-align: center; }
+.quantity-controls button, .remove-all-btn { width: 36px; height: 36px; font-size: 1.8rem; border-radius: 50%; display: flex; justify-content: center; align-items: center; line-height: 1; cursor: pointer; border: 1px solid var(--cor-borda); }
+.quantity-controls button { background-color: #e9ecef; }
+.remove-all-btn { background-color: transparent; color: var(--cor-perigo); border: none; }

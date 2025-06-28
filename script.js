@@ -8,39 +8,59 @@ const firebaseConfig = {
     appId: "1:328833049744:web:6bd4459aebd35bd41f2415"
 };
 
-// Inicializa o Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// --- LÓGICA DO CARRINHO ---
 let carrinho = JSON.parse(localStorage.getItem('carrinhoRestauranteCoringa')) || [];
 
-// **NOVO**: Função para salvar o carrinho no localStorage
 function salvarCarrinho() {
     localStorage.setItem('carrinhoRestauranteCoringa', JSON.stringify(carrinho));
 }
 
-// **CORREÇÃO**: Adiciona um ID único a itens antigos que não o tenham
 carrinho.forEach((item, index) => {
     if (!item.id) {
-        item.id = Date.now() + index; // Cria um ID único baseado no tempo + índice
+        item.id = Date.now() + index;
     }
 });
-salvarCarrinho(); // Salva o carrinho já corrigido
+salvarCarrinho();
 
+// Lógica para a instalação do PWA
+let deferredPrompt;
+const installPwaBtn = document.getElementById('install-pwa-btn');
 
-// --- CÓDIGO EXECUTADO QUANDO A PÁGINA CARREGA ---
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  if (installPwaBtn) {
+    installPwaBtn.style.display = 'block';
+  }
+});
+
+if (installPwaBtn) {
+    installPwaBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                console.log('Utilizador aceitou instalar o PWA');
+                installPwaBtn.style.display = 'none';
+            }
+            deferredPrompt = null;
+        }
+    });
+}
+
+window.addEventListener('appinstalled', () => {
+  if (installPwaBtn) {
+    installPwaBtn.style.display = 'none';
+  }
+  deferredPrompt = null;
+  console.log('PWA foi instalado');
+});
+
+// Código executado quando a página carrega
 document.addEventListener("DOMContentLoaded", () => {
-    // Pega os elementos do HTML
-    const fabCarrinho = document.getElementById('fab-carrinho');
-    const sidePanelCarrinho = document.getElementById('side-panel-carrinho');
-    const closePanelBtn = document.getElementById('close-panel-btn');
-    const panelOverlay = document.getElementById('panel-overlay');
-    const finalizarPedidoBtn = document.getElementById('finalizar-pedido-btn');
-    const carrinhoItensContainer = document.getElementById('carrinho-itens');
     const dataElemento = document.getElementById('data-atual');
-    
-    // Mostra a data atual
     if (dataElemento) {
         dataElemento.textContent = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
     }
@@ -48,37 +68,35 @@ document.addEventListener("DOMContentLoaded", () => {
     renderizarCarrinho();
     carregarCardapioDoDia();
 
-    // Lógica para abrir/fechar o painel do carrinho
+    const fabCarrinho = document.getElementById('fab-carrinho');
+    const sidePanelCarrinho = document.getElementById('side-panel-carrinho');
+    const closePanelBtn = document.getElementById('close-panel-btn');
+    const panelOverlay = document.getElementById('panel-overlay');
+    const carrinhoItensContainer = document.getElementById('carrinho-itens');
+    const finalizarPedidoBtn = document.getElementById('finalizar-pedido-btn');
+
     function togglePanel() {
         sidePanelCarrinho.classList.toggle('open');
         panelOverlay.classList.toggle('open');
     }
+
     fabCarrinho.addEventListener('click', togglePanel);
     closePanelBtn.addEventListener('click', togglePanel);
     panelOverlay.addEventListener('click', togglePanel);
 
-    // Event listener para todas as ações dentro do carrinho
     carrinhoItensContainer.addEventListener('click', (e) => {
-        const target = e.target.closest('button'); // Garante que o clique no ícone ou no botão funcione
+        const target = e.target.closest('button');
         if (!target) return;
-
         const id = Number(target.dataset.id);
         if (isNaN(id)) return;
-
-        if (target.classList.contains('remove-all-btn')) {
-            removerItemTotalmente(id);
-        } else if (target.classList.contains('decrease-qty-btn')) {
-            diminuirQuantidade(id);
-        } else if (target.classList.contains('increase-qty-btn')) {
-            aumentarQuantidade(id);
-        }
+        if (target.classList.contains('remove-all-btn')) removerItemTotalmente(id);
+        else if (target.classList.contains('decrease-qty-btn')) diminuirQuantidade(id);
+        else if (target.classList.contains('increase-qty-btn')) aumentarQuantidade(id);
     });
 
-    // Lógica para enviar o pedido via WhatsApp
     finalizarPedidoBtn.addEventListener('click', () => {
         if (carrinho.length === 0) return alert("O seu carrinho está vazio!");
-        let mensagem = '*NOVO PEDIDO - RESTAURANTE CORINGA*\n\n';
-        mensagem += 'Olá! Gostaria de fazer o seguinte pedido:\n\n';
+        let mensagem = '*NOVO PEDIDO - RESTAURANTE CORINGA*\n\nOlá! Gostaria de fazer o seguinte pedido:\n\n';
         carrinho.forEach(item => {
             const obsMsg = item.obs ? `\n  - Obs: ${item.obs}` : '';
             mensagem += `*${item.quantidade}x* ${item.nome} ${item.tamanho || ''}${obsMsg}\n`;
@@ -177,8 +195,6 @@ async function carregarCardapioDoDia() {
         menuContainer.innerHTML = "<div class='card-categoria'><p>Ocorreu um erro ao carregar o cardápio. Tente recarregar a página.</p></div>";
     }
 }
-
-// **LÓGICA DO CARRINHO ATUALIZADA**
 
 function adicionarAoCarrinho(item) {
     const itemExistente = item.obs ? null : carrinho.find(i => i.nome === item.nome && i.tamanho === item.tamanho && !i.obs);
