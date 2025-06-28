@@ -22,15 +22,15 @@
     <!-- PAINEL DE CONTROLE -->
     <div id="admin-panel" style="display: none;">
         <header class="admin-header">
-            <h1>Painel de Controle - Restaurante Coringa</h1>
+            <h1>Painel de Controle</h1>
             <button id="logout-button">Sair</button>
         </header>
 
         <main class="admin-main">
             <!-- SECÇÃO 1: COMPOSIÇÃO DO DIA -->
             <section class="card">
-                <h2>Composição do Cardápio do Dia</h2>
-                <p>Selecione os ingredientes que serão servidos hoje.</p>
+                <h2>1. Definir Composição do Dia</h2>
+                <p class="description">Clique para selecionar os ingredientes de hoje a partir da sua biblioteca.</p>
                 <button id="edit-composition-btn" class="cta-button">Editar Composição</button>
                 <div class="ingredient-lists">
                     <div class="ingredient-column">
@@ -46,10 +46,10 @@
 
             <!-- SECÇÃO 2: OPÇÕES DE MARMITA -->
             <section class="card">
-                <h2>Gerir Opções de Marmita do Dia</h2>
-                <p>Adicione ou remova os tamanhos e preços das marmitas de hoje.</p>
-                <form id="add-option-form">
-                    <input type="text" id="option-name" placeholder="Nome da opção (ex: Média)" required>
+                <h2>2. Gerir Opções de Marmita do Dia</h2>
+                <p class="description">Adicione os tamanhos e preços disponíveis hoje.</p>
+                <form id="add-option-form" class="form-group">
+                    <input type="text" id="option-name" placeholder="Nome (ex: Média)" required>
                     <input type="text" id="option-price" placeholder="Preço (ex: R$ 18,00)" required>
                     <button type="submit">Adicionar Opção</button>
                 </form>
@@ -61,17 +61,19 @@
             
             <!-- SECÇÃO 3: BIBLIOTECA DE INGREDIENTES -->
             <section class="card">
-                <h2>Gerir Biblioteca de Ingredientes</h2>
-                <p>Esta é a sua lista permanente de todos os ingredientes possíveis.</p>
-                <form id="add-library-item-form">
-                    <input type="text" id="lib-item-name" placeholder="Nome do novo ingrediente" required>
+                <h2>Sua Biblioteca de Ingredientes</h2>
+                <p class="description">Adicione aqui novos ingredientes para a sua lista permanente.</p>
+                <form id="add-library-item-form" class="form-group">
+                    <input type="text" id="lib-item-name" placeholder="Nome do Ingrediente" required>
                     <select id="lib-item-type">
                         <option value="Acompanhamento">Acompanhamento</option>
                         <option value="Proteína">Proteína</option>
                     </select>
                     <button type="submit">Adicionar à Biblioteca</button>
                 </form>
-                <div id="library-list-container"></div>
+                <div class="ingredient-column">
+                     <ul id="library-list-container"></ul>
+                </div>
             </section>
         </main>
     </div>
@@ -79,12 +81,32 @@
     <!-- MODAL PARA EDITAR A COMPOSIÇÃO -->
     <div id="composition-modal" class="modal-overlay" style="display: none;">
         <div class="modal-content">
+            <button id="modal-close-x-btn" class="modal-close-btn">&times;</button>
             <h2>Selecionar Ingredientes para Hoje</h2>
+            <div class="search-container">
+                <input type="text" id="search-ingredients" placeholder="Pesquisar ingrediente...">
+            </div>
             <form id="composition-form">
                 <div id="modal-ingredient-lists" class="ingredient-lists"></div>
                 <div class="modal-actions">
                     <button type="submit" class="save-btn">Salvar Cardápio do Dia</button>
                     <button type="button" id="cancel-composition-btn" class="cancel-btn">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL PARA EDITAR ITEM DA BIBLIOTECA -->
+    <div id="edit-library-item-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h2>Editar Item da Biblioteca</h2>
+            <form id="edit-library-item-form">
+                <input type="hidden" id="edit-lib-item-id">
+                <div class="option-group"><label for="edit-lib-item-name">Nome</label><input type="text" id="edit-lib-item-name" required></div>
+                <div class="option-group"><label for="edit-lib-item-type">Tipo</label><select id="edit-lib-item-type"><option value="Acompanhamento">Acompanhamento</option><option value="Proteína">Proteína</option></select></div>
+                <div class="modal-actions">
+                    <button type="submit" class="save-btn">Salvar</button>
+                    <button type="button" id="cancel-edit-lib-btn" class="cancel-btn">Cancelar</button>
                 </div>
             </form>
         </div>

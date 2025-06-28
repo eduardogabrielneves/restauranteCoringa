@@ -2,10 +2,17 @@
 :root {
     --cor-primaria: #2E7D32;
     --cor-perigo: #d9534f;
+    --cor-info: #007bff; /* Azul para editar */
     --cor-fundo-admin: #f8f9fa;
-    --cor-texto-titulo: #343a40;
+    --cor-texto-titulo: #212529;
     --cor-texto-corpo: #495057;
     --cor-borda: #dee2e6;
+    --cor-sucesso: #28a745;
+}
+
+/* Classe para travar o scroll do corpo da página */
+body.modal-open {
+    overflow: hidden;
 }
 
 body { 
@@ -21,58 +28,76 @@ body {
     width: 100%; 
     max-width: 900px;
     background: white; 
-    padding: 2rem; 
-    border-radius: 8px; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-radius: 12px; 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
     margin: auto; 
 }
 
-.admin-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--cor-borda); }
-.admin-header h1 { font-size: 1.8rem; color: var(--cor-texto-titulo); }
-#logout-button { background-color: var(--cor-perigo); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 500; }
+.admin-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--cor-borda); }
+.admin-header h1 { font-size: 1.8rem; color: var(--cor-texto-titulo); margin: 0; }
+#logout-button { background-color: var(--cor-perigo); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 500; font-size: 1rem; }
 
-.card { margin-bottom: 2.5rem; border: 1px solid var(--cor-borda); padding: 1.5rem; border-radius: 8px; }
-.card h2 { margin-top: 0; margin-bottom: 20px; font-size: 1.5rem; color: var(--cor-texto-titulo); }
-.card p { color: #6c757d; margin-top: -15px; margin-bottom: 25px; }
+.card { margin-bottom: 3rem; border: 1px solid var(--cor-borda); padding: 1.5rem 2rem; border-radius: 8px; }
+.card h2 { margin-top: 0; margin-bottom: 1rem; font-size: 1.6rem; color: var(--cor-texto-titulo); }
+.card p.description { color: #6c757d; margin-top: -1rem; margin-bottom: 2rem; font-size: 1rem; }
 
-/* 3. FORMULÁRIOS */
-input[type="text"], input[type="password"], input[type="email"], input[type="number"], select, textarea {
-    width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box; font-size: 1rem; transition: border-color 0.2s, box-shadow 0.2s;
+/* 3. FORMULÁRIOS E BOTÕES */
+input[type="text"], input[type="password"], input[type="email"], select {
+    width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ced4da; border-radius: 5px; box-sizing: border-box; font-size: 1rem; transition: border-color 0.2s, box-shadow 0.2s;
 }
-input:focus, select:focus, textarea:focus { border-color: var(--cor-primaria); box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25); outline: none; }
-button { cursor: pointer; border-radius: 5px; font-weight: 500; transition: background-color 0.2s; }
+input:focus, select:focus { border-color: var(--cor-primaria); box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25); outline: none; }
+button { cursor: pointer; border-radius: 5px; font-weight: 500; transition: background-color 0.2s, transform 0.1s; }
+button:active { transform: scale(0.98); }
 
-/* Formulários de adicionar itens */
-#add-library-item-form, #add-option-form { display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end; }
-#add-library-item-form input[type="text"], #add-option-form input[type="text"] { flex-grow: 1; }
-#add-library-item-form button, #add-option-form button { width: auto; flex-shrink: 0; padding: 12px 15px; background-color: var(--cor-primaria); color: white; border: none; }
+.form-group { display: flex; flex-wrap: wrap; gap: 15px; align-items: center; }
+.form-group input { flex-grow: 1; margin-bottom: 0; }
+.form-group button { width: auto; flex-shrink: 0; padding: 12px 15px; background-color: var(--cor-primaria); color: white; border: none; }
+.cta-button { background-color: var(--cor-primaria); color: white; border: none; padding: 12px 25px; font-size: 1rem; margin-bottom: 20px; }
 
-/* 4. LISTAS DE INGREDIENTES, OPÇÕES E BIBLIOTECA */
-.cta-button { background-color: var(--cor-primaria); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 1rem; margin-bottom: 20px; }
-.ingredient-lists { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 20px; }
-@media (min-width: 768px) { .ingredient-lists { grid-template-columns: 1fr 1fr; } }
+/* 4. LISTAS E ITENS */
+/* **CORREÇÃO**: Layout de grelha responsivo e automático */
+.ingredient-lists {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
 .ingredient-column h3 { margin-top: 0; margin-bottom: 10px; border-bottom: 1px solid var(--cor-borda); padding-bottom: 10px; }
 .ingredient-column ul { list-style-type: none; padding: 0; margin: 0; }
-.ingredient-column li { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-radius: 4px; }
+.ingredient-column li { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-radius: 4px; font-size: 1.1rem; }
 .ingredient-column li:nth-child(odd) { background-color: #f8f9fa; }
 
-/* Lista da biblioteca e opções de marmita */
-#library-list-container, #options-list { margin-top: 20px; }
-#library-list-container .menu-item-admin, #options-list li { display: flex; justify-content: space-between; align-items: center; padding: 8px; border-bottom: 1px solid #f1f1f1; }
-#library-list-container .delete-btn, #options-list .delete-btn { background: transparent; color: var(--cor-perigo); border: none; font-size: 1.2rem; opacity: 0.6; transition: opacity 0.2s; cursor: pointer; }
-#library-list-container .menu-item-admin:hover .delete-btn, #options-list li:hover .delete-btn { opacity: 1; }
+/* **CORREÇÃO**: Estilos melhorados para a lista da biblioteca */
+#library-list-container { margin-top: 20px; }
+#library-list-container li { display: flex; justify-content: space-between; align-items: center; padding: 12px 10px; border-bottom: 1px solid #f1f1f1; }
+.library-item-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.delete-btn, .edit-btn { background: transparent; border: none; opacity: 0.6; transition: opacity 0.2s, transform 0.2s; cursor: pointer; padding: 5px; line-height: 1; }
+li:hover .delete-btn, li:hover .edit-btn { opacity: 1; }
+.delete-btn { color: var(--cor-perigo); font-size: 1.5rem; }
+.edit-btn { color: var(--cor-info); font-size: 1.2rem; }
+.delete-btn:hover, .edit-btn:hover { transform: scale(1.2); }
+
 
 /* 5. MODAL */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; }
-.modal-content { background: white; padding: 2rem; border-radius: 8px; width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto; }
-.modal-content h2 { margin-top: 0; }
-.modal-actions { display: flex; justify-content: flex-end; margin-top: 1.5rem; gap: 10px; }
+.modal-content { 
+    background: white; padding: 2rem; border-radius: 8px; width: 90%; max-width: 700px; max-height: 85vh; display: flex; flex-direction: column; position: relative;
+}
+.modal-close-btn { position: absolute; top: 10px; right: 15px; background: transparent; border: none; font-size: 2.5rem; line-height: 1; color: #aaa; cursor: pointer; padding: 0; }
+.modal-close-btn:hover { color: #333; }
+.modal-content h2 { margin-top: 0; padding-right: 30px; }
+.modal-content .search-container { margin-bottom: 1.5rem; position: sticky; top: -2rem; background: white; padding-top: 1.5rem; padding-bottom: 0.5rem; z-index: 1; }
+.modal-content .search-container input { width: 100%; padding: 12px 15px; border: 1px solid var(--cor-borda); border-radius: 5px; font-size: 1rem; }
+.modal-content form { flex-grow: 1; display: flex; flex-direction: column; overflow: hidden; }
+.modal-content #modal-ingredient-lists { flex-grow: 1; overflow-y: auto; padding-right: 15px; }
+.modal-actions { display: flex; justify-content: flex-end; margin-top: 1.5rem; gap: 10px; flex-shrink: 0; }
 .modal-actions button { width: auto; padding: 10px 20px; }
-.save-btn { background-color: var(--cor-primaria); color: white; border: none; }
+.save-btn { background-color: var(--cor-sucesso); color: white; border: none; }
 .cancel-btn { background-color: #6c757d; color: white; border: none; }
 #modal-ingredient-lists .ingredient-column { border: 1px solid #eee; padding: 15px; border-radius: 8px; }
 .checkbox-list { list-style: none; padding: 0; margin: 0; }
-.checkbox-list li { padding: 5px 0; }
-.checkbox-list label { display: flex; align-items: center; cursor: pointer; }
-.checkbox-list input[type="checkbox"] { margin-right: 10px; width: 18px; height: 18px; }
-
+.checkbox-list li { padding: 5px 0; border-bottom: none; }
+.checkbox-list li:nth-child(odd) { background: none; }
+.checkbox-list label { display: flex; align-items: center; cursor: pointer; font-size: 1.1rem; }
+.checkbox-list input[type="checkbox"] { margin-right: 15px; width: 20px; height: 20px; }
